@@ -27,33 +27,34 @@ class ProductProvider extends Component {
   });
  };
 
- getItem = (id) => {
+ getItem = id => {
   const cardProduct = this.state.products.find(cp => cp.id === id);
   return cardProduct;
  }
 
- handleDetail = (id) => {
+ handleDetail = id => {
   //console.log('hello from details');
   const mainProduct = this.getItem(id);
   
   this.setState(()=>{
    return {detailProduct: mainProduct};
-  })
- }
- addToCart = (id) => {
+  });
+ };
+
+ addToCart = id => {
   //console.log(`hello from add to cart.id is ${id}`);
   let cartProducts = [...this.state.products];
   const index = cartProducts.indexOf(this.getItem(id));
   const tel = cartProducts[index];
-  tel.incart = true;
+  tel.inCart = true;
   tel.count = 1;
   const price = tel.price;
   tel.total = price;
 
   this.setState(
    () => {
-   return {
-    products: cartProducts,
+   return { 
+    products: cartProducts, 
     cart: [...this.state.cart, tel] };
    },
    () => {
