@@ -9,7 +9,9 @@ class ProductProvider extends Component {
  state = {
   products: [],
   detailProduct: detailProduct,
-  cart: []
+  cart: [],
+  modalOpen: false,
+  modalProduct: detailProduct
  }
 
  componentDidMount() {
@@ -27,6 +29,7 @@ class ProductProvider extends Component {
   });
  };
 
+ // возвращает продукт с нужным id 
  getItem = id => {
   const cardProduct = this.state.products.find(cp => cp.id === id);
   return cardProduct;
@@ -41,6 +44,7 @@ class ProductProvider extends Component {
   });
  };
 
+ // добоавление продукта в корзину
  addToCart = id => {
   //console.log(`hello from add to cart.id is ${id}`);
   let cartProducts = [...this.state.products];
@@ -62,7 +66,27 @@ class ProductProvider extends Component {
    }
   );
  };
- 
+
+ // открытие модального окна с товаром
+openModal = id => {
+ const openProduct = this.getItem(id);
+
+ this.setState(() => {
+  return {
+   modalProduct: openProduct,
+   modalOpen: true
+  }
+ })
+}
+// закрытие модального окна
+closeModal = () => {
+ this.setState(()=>{
+  return {
+   modalOpen: false
+  }
+ })
+}
+
  render() {
   return (
    <ProductContext.Provider 
@@ -70,6 +94,8 @@ class ProductProvider extends Component {
      ...this.state,
      handleDetail: this.handleDetail,
      addToCart: this.addToCart,
+     openModal: this.openModal,
+     closeModal: this.closeModal
     }}
    >
     {this.props.children}
