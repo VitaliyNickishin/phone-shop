@@ -9,7 +9,8 @@ class ProductProvider extends Component {
  state = {
   products: [],
   detailProduct: detailProduct,
-  cart: [],
+  cart: storeProducts,
+  // cart: [],
   modalOpen: false,
   modalProduct: detailProduct,
   cartSubTotal: 0,
@@ -65,7 +66,7 @@ class ProductProvider extends Component {
     cart: [...this.state.cart, tel] };
    },
    () => {
-    console.log(this.state);
+    // console.log(this.state);
    }
   );
  };
