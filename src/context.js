@@ -9,8 +9,8 @@ class ProductProvider extends Component {
  state = {
   products: [],
   detailProduct: detailProduct,
-  cart: storeProducts,
-  // cart: [],
+  // cart: storeProducts,
+  cart: [],
   modalOpen: false,
   modalProduct: detailProduct,
   cartSubTotal: 0,
@@ -67,6 +67,7 @@ class ProductProvider extends Component {
    },
    () => {
     // console.log(this.state);
+    this.addTotals();
    }
   );
  };
@@ -106,6 +107,23 @@ removeItem = (id) => {
  // очистить список корзины
 clearCart = (id) => {
  console.log('cart was cleared');
+ 
+}
+ // cчитает общую стоимость
+addTotals = () => {
+ let subTotal = 0;
+ this.state.cart.map(item=>(subTotal += item.total));
+ const tempTax = subTotal * 0.1;
+ const tax = parseFloat(tempTax.toFixed(2));
+ const total = subTotal + tax;
+
+ this.setState(() => {
+  return {
+   cartSubTotal: subTotal,
+   cartTax: tax,
+   cartTotal: total
+  }
+ })
 }
 
  render() {
